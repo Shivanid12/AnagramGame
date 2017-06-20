@@ -22,6 +22,13 @@
 #define deg2rad(x) x * M_PI / 180
 #define randomf(minX,maxX) ((float)(arc4random() % (maxX - minX + 1)) + (float)minX)
 
+// audio files
+#define kSoundDing @"ding.mp3"
+#define kSoundWrong @"wrong.m4a"
+#define kSoundWin @"win.mp3"
+
+#define kAudioEffects @[kSoundDing, kSoundWrong, kSoundWin]
+
 
 // custom colors
 

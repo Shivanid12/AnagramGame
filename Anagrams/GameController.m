@@ -34,6 +34,8 @@
     {
         self.data = [[GameData alloc] init];
         self.data.points = 0 ;
+        self.audioController = [[AudioController alloc] init];
+        [self.audioController configureAudioEffects:kAudioEffects];
     }
     return  self ;
 }
@@ -131,6 +133,7 @@
         if([targetViewTemp.letter isEqualToString:tileView.letter])
         {
             NSLog(@" Success ,letter matches ");
+            [self.audioController playEffect:kSoundDing];
             [self placeTile:tileView atTarget:targetViewTemp];
           self.data.points += self.level.pointsPerTile ;
             [self.hudView.gamePoints countTo:self.data.points withDuration:1.5 ];
@@ -141,6 +144,7 @@
         else
         {
             NSLog(@"Failure letter doesnt match ");
+            [self.audioController playEffect:kSoundWrong];
             self.data.points -= self.level.pointsPerTile ;
             [self.hudView.gamePoints countTo:self.data.points withDuration:1.5];
             NSLog(@"game points : %d",self.data.points);
@@ -186,6 +190,7 @@
             return ;
     }
     [self stopStopWatch];
+    [self.audioController playEffect:kSoundWin];
     NSLog(@"Game Over ") ;  // TODO : add alert view
     
 }

@@ -10,6 +10,7 @@
 #import "Level.h"
 #import "TileView.h"
 #import "HUDView.h"
+#import "AudioController.h"
 
 
 @interface GameController : NSObject<TileDragDelegateProtocol>
@@ -20,6 +21,8 @@
 @property (nonatomic ,strong) Level *level ;
 
 @property (nonatomic , strong) HUDView *hudView ;
+
+@property (nonatomic, strong) AudioController *audioController ;
 
 -(void) dealRandomAnagram ;
 
