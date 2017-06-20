@@ -39,11 +39,21 @@
     }
     return  self ;
 }
+
+-(void) setHudView:(HUDView *)hudView
+{
+    
+    _hudView = hudView;
+    [_hudView.helpButton addTarget:self action:@selector(hintButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+   
+
+    }
 -(void)dealRandomAnagram
 {
     //check point *
     
     NSAssert(self.level.anagrams, @"no level loaded");
+   
     
     // fetching random anagram pair
     
@@ -58,7 +68,7 @@
     int secondAnagramLength = (int) [secondAnagram length] ;
     
     NSLog( @" anagram 1 : %@ | count : %i",firstAnagram ,firstAnagramLength);
-    NSLog(@" anagram 2  : %@ |count: %i ",secondAnagram ,secondAnagramLength) ;
+    NSLog( @" anagram 2  : %@ |count: %i ",secondAnagram ,secondAnagramLength) ;
     
     // calculate tile side
     
@@ -109,6 +119,8 @@
             
         }
     }
+    self.hudView.helpButton.enabled = YES ;
+
     [self startStopWatch];
     
 }
@@ -160,7 +172,7 @@
                              } completion:nil];
         }
     }
-}
+    }
 
 
 -(void) placeTile:(TileView *)tileView atTarget:(TargetView *)targetView
@@ -209,6 +221,7 @@
 {
     [self.timer invalidate] ;
      self.timer = nil ;
+    self.hudView.helpButton.enabled = NO ;
     
 }
 
@@ -221,5 +234,58 @@
         [self stopStopWatch] ;
     
 }
+
+-(IBAction)hintButtonPressed:(id)sender
+{
+    NSLog(@" hint button pressed ");
+    
+   self.hudView.helpButton.userInteractionEnabled = NO ;
+    // Find the first unmatched target
+    TargetView *target = nil;
+    for (TargetView *temp in self.targetsArray)
+    {
+        if(temp.isMatched ==  NO)
+        {
+            target = temp ;
+            break ;
+        }
+        
+    }
+    
+    // Find the tile matching the target
+    TileView *tile = nil;
+    
+    for (TileView *temp in self.tilesArray)
+    {
+        NSLog(@"----> %@",temp.letter);
+        
+        if(temp.isMatched == NO && [temp.letter isEqualToString:target.letter])
+        {
+            tile = temp ;
+            break ;
+        }
+        
+    }
+    
+    [self.gameView bringSubviewToFront:tile];
+    
+    [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+        tile.center = target.center ;
+        [self.gameView setNeedsDisplay];
+        [self.gameView layoutIfNeeded] ;
+    } completion:^(BOOL finished){
+        [self placeTile:tile atTarget:target];
+        self.hudView.helpButton.userInteractionEnabled = YES ;
+        [self checkForSuccess] ;
+        
+    }];
+    
+    // Deduct points from score
+    
+    self.data.points -= self.level.pointsPerTile/2 ;
+    [self.hudView.gamePoints countTo:self.data.points withDuration:1.5];
+    
+}
+
 
 @end
