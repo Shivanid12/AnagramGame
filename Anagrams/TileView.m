@@ -52,7 +52,7 @@
 {
     // to rotate the tile b/w -0.2 to 0.3 radians
     
-    float rotation = randomf(0, 50)/100.0 -0.2 ;
+    float rotation = randomf(0, 50)/100.0 - 0.2 ;
     self.transform = CGAffineTransformMakeRotation(rotation) ;
     
     // move randomly upwards

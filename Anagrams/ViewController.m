@@ -47,12 +47,10 @@
     [self.gameController dealRandomAnagram] ;
     
     
-    HUDView *hud = [[HUDView alloc] init] ;
+    HUDView *hud = [HUDView viewWithRect:CGRectMake(0, 0, kScreenWidth, kScreenHeight)] ;
     self.gameController.hudView = hud ;
   
-    
-    
-    [self.view addSubview:hud];
+        [self.view addSubview:hud];
     
     
     

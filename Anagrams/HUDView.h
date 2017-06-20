@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "StopwatchView.h"
+#import "CounterLabelView.h"
+
 
 @interface HUDView : UIView
 
 @property (nonatomic, strong) StopwatchView *stopwatch ;
 
-+(instancetype) viewWithRect : (CGRect)rect ;
+@property (nonatomic,weak) CounterLabelView *gamePoints ;
+
++(instancetype)viewWithRect : (CGRect)rect ;
+
 
 @end

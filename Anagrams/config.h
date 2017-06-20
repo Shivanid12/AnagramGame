@@ -23,5 +23,11 @@
 #define randomf(minX,maxX) ((float)(arc4random() % (maxX - minX + 1)) + (float)minX)
 
 
+// custom colors
+
+#define kGamePointsColor [UIColor colorWithRed:0.38 green:0.098 blue:0.035 alpha:1]
+#define kClearColor [UIColor clearColor]
+
+
 #define configed 1
 #endif

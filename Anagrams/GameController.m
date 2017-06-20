@@ -10,20 +10,40 @@
 #import "config.h"
 #import "TargetView.h"
 #import "HUDView.h"
+#import "GameData.h"
 
 @interface GameController()
 @property (nonatomic ,strong) NSMutableArray *tilesArray ;
 
 @property (nonatomic ,strong )NSMutableArray *targetsArray ;
 
+@property (nonatomic)GameData *data ;
+
+@property (nonatomic ,assign) int secondsLeft ;
+
+@property (nonatomic , strong) NSTimer *timer ;
+
 @end
 @implementation GameController
 
+
+-(instancetype) init
+{
+    self = [super init];
+    if(self)
+    {
+        self.data = [[GameData alloc] init];
+        self.data.points = 0 ;
+    }
+    return  self ;
+}
 -(void)dealRandomAnagram
 {
     //check point *
     
     NSAssert(self.level.anagrams, @"no level loaded");
+    
+    // fetching random anagram pair
     
     int randomIndex = arc4random()%[self.level.anagrams count];
     
@@ -39,11 +59,15 @@
     NSLog(@" anagram 2  : %@ |count: %i ",secondAnagram ,secondAnagramLength) ;
     
     // calculate tile side
+    
     float tileSide = ceilf(kScreenWidth*0.9/MAX(firstAnagramLength, secondAnagramLength)) -kTileMargin ;
-    // to get left margin for the first tile 
+    
+    // to get left margin for the first tile
+    
     float xOffset = kScreenWidth - MAX(firstAnagramLength, secondAnagramLength)* (tileSide +kTileMargin) ;
     
     // for adjustment w.r.t tile's center
+    
     xOffset += tileSide/2 ;
     
     self.tilesArray = [NSMutableArray arrayWithCapacity:firstAnagramLength];
@@ -83,6 +107,7 @@
             
         }
     }
+    [self startStopWatch];
     
 }
 
@@ -107,12 +132,19 @@
         {
             NSLog(@" Success ,letter matches ");
             [self placeTile:tileView atTarget:targetViewTemp];
+          self.data.points += self.level.pointsPerTile ;
+            [self.hudView.gamePoints countTo:self.data.points withDuration:1.5 ];
+            NSLog(@"game points : %d",self.data.points);
             [self checkForSuccess];
+            
         }
         else
         {
             NSLog(@"Failure letter doesnt match ");
-            
+            self.data.points -= self.level.pointsPerTile ;
+            [self.hudView.gamePoints countTo:self.data.points withDuration:1.5];
+            NSLog(@"game points : %d",self.data.points);
+
             [tileView randomizeTilePosition];
             
             [UIView animateWithDuration:0.35
@@ -153,7 +185,36 @@
         if(target.isMatched == NO)
             return ;
     }
+    [self stopStopWatch];
     NSLog(@"Game Over ") ;  // TODO : add alert view
     
 }
+#pragma mark - Timer methods
+
+-(void) startStopWatch
+{
+    self.secondsLeft = self.level.timeToSolve ;
+    [self.hudView.stopwatch setSeconds:self.secondsLeft];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+    
+}
+
+-(void) stopStopWatch
+{
+    [self.timer invalidate] ;
+     self.timer = nil ;
+    
+}
+
+-(void)tick:(NSTimer*)time
+{
+    self.secondsLeft -- ;
+    [self.hudView.stopwatch setSeconds:self.secondsLeft];
+    
+    if(self.secondsLeft == 0 )
+        [self stopStopWatch] ;
+    
+}
+
 @end

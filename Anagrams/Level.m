@@ -23,7 +23,7 @@
     
     // initializing the object from the dictionary
     
-    Level *levelObject =[Level new] ;
+    Level *levelObject = [Level new] ;
     levelObject.pointsPerTile = [levelDictionary[@"pointsPerTile"] intValue];
     levelObject.timeToSolve = [levelDictionary[@"timeToSolve"] intValue] ;
     levelObject.anagrams = levelDictionary[@"anagrams"];

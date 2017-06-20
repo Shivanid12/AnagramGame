@@ -15,6 +15,8 @@
 		40D9CCBF1EC70BDD0096FF2F /* TargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D9CCBE1EC70BDD0096FF2F /* TargetView.m */; };
 		40D9CCC11EC98D9E0096FF2F /* gameBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40D9CCC01EC98D9E0096FF2F /* gameBackground.jpg */; };
 		40D9CCC31EC98DA80096FF2F /* gameBackground@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40D9CCC21EC98DA80096FF2F /* gameBackground@2x.jpg */; };
+		40E333E11EF7FADB0064EE5B /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E333E01EF7FADB0064EE5B /* GameData.m */; };
+		40E333E41EF7FCC60064EE5B /* CounterLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E333E31EF7FCC60064EE5B /* CounterLabelView.m */; };
 		9C0D03BE16D2D30D00D3D45C /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C0D03BD16D2D30D00D3D45C /* win.mp3 */; };
 		9C0D03C716D2D6C100D3D45C /* Comic_Andy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C0D03C616D2D6C100D3D45C /* Comic_Andy.ttf */; };
 		9C2695D516D270A40019199F /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C2695D416D270A40019199F /* ding.mp3 */; };
@@ -63,6 +65,10 @@
 		40D9CCBE1EC70BDD0096FF2F /* TargetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TargetView.m; sourceTree = "<group>"; };
 		40D9CCC01EC98D9E0096FF2F /* gameBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gameBackground.jpg; sourceTree = "<group>"; };
 		40D9CCC21EC98DA80096FF2F /* gameBackground@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "gameBackground@2x.jpg"; sourceTree = "<group>"; };
+		40E333DF1EF7FADB0064EE5B /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
+		40E333E01EF7FADB0064EE5B /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
+		40E333E21EF7FCC60064EE5B /* CounterLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CounterLabelView.h; sourceTree = "<group>"; };
+		40E333E31EF7FCC60064EE5B /* CounterLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CounterLabelView.m; sourceTree = "<group>"; };
 		9C0D03BD16D2D30D00D3D45C /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
 		9C0D03C616D2D6C100D3D45C /* Comic_Andy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Comic_Andy.ttf; sourceTree = "<group>"; };
 		9C2695D416D270A40019199F /* ding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ding.mp3; sourceTree = "<group>"; };
@@ -193,6 +199,8 @@
 				401293871ECEE92F0032BFDA /* StopwatchView.m */,
 				401293891ECEEB0B0032BFDA /* HUDView.h */,
 				4012938A1ECEEB0B0032BFDA /* HUDView.m */,
+				40E333E21EF7FCC60064EE5B /* CounterLabelView.h */,
+				40E333E31EF7FCC60064EE5B /* CounterLabelView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -202,6 +210,8 @@
 			children = (
 				40D9CCB41EC5E6640096FF2F /* Level.h */,
 				40D9CCB51EC5E6640096FF2F /* Level.m */,
+				40E333DF1EF7FADB0064EE5B /* GameData.h */,
+				40E333E01EF7FADB0064EE5B /* GameData.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -316,7 +326,7 @@
 		9CCA409516CFD85A00B16E42 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Underplot ltd.";
 			};
 			buildConfigurationList = 9CCA409816CFD85A00B16E42 /* Build configuration list for PBXProject "Anagrams" */;
@@ -376,6 +386,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CCA40AD16CFD85A00B16E42 /* main.m in Sources */,
+				40E333E11EF7FADB0064EE5B /* GameData.m in Sources */,
+				40E333E41EF7FCC60064EE5B /* CounterLabelView.m in Sources */,
 				9CCA40B116CFD85A00B16E42 /* AppDelegate.m in Sources */,
 				401293881ECEE92F0032BFDA /* StopwatchView.m in Sources */,
 				40D9CCBC1EC63A510096FF2F /* TileView.m in Sources */,
