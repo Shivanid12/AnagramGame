@@ -11,4 +11,6 @@
 @interface StopwatchView : UILabel
 
 -(void) setSeconds: (int)seconds ;
+-(int)seconds ;
+
 @end

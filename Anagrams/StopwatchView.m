@@ -7,7 +7,12 @@
 
 #import "StopwatchView.h"
 #import "config.h"
+@interface StopwatchView()
+{
+    int timeInSeconds ;
+}
 
+@end
 @implementation StopwatchView
 
 
@@ -28,6 +33,12 @@
 -(void) setSeconds:(int)seconds
 {
     self.text = [NSString stringWithFormat:@" %02.f : %02i" , round(seconds/60) , seconds%60];
+    timeInSeconds = seconds;
+}
+
+-(int)seconds
+{
+    return timeInSeconds;
 }
 
 @end

@@ -11,7 +11,9 @@
 #import "TileView.h"
 #import "HUDView.h"
 #import "AudioController.h"
+#import "GameData.h"
 
+typedef void(^ChallengeUpdationBlock) (BOOL gameWon);
 
 @interface GameController : NSObject<TileDragDelegateProtocol>
 //view to add game elements to
@@ -24,6 +26,13 @@
 
 @property (nonatomic, strong) AudioController *audioController ;
 
+@property (nonatomic)GameData *gameData ;
+
+// Block property -> gets executed after game completion
+@property ChallengeUpdationBlock onAnagramSolved ;
+
 -(void) dealRandomAnagram ;
+
+
 
 @end

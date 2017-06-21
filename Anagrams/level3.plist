@@ -29,5 +29,7 @@
 	<integer>180</integer>
 	<key>pointsPerTile</key>
 	<integer>80</integer>
+	<key>highScore</key>
+	<integer>0</integer>
 </dict>
 </plist>

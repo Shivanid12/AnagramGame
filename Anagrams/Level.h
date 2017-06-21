@@ -16,6 +16,8 @@
 
 @property (strong ,nonatomic) NSArray *anagrams ;
 
+@property (assign, nonatomic) int highScore ;
+
 // factory method to load a plist file and initialize the model
 
 +(instancetype)levelWithNum :(int)levelNum ;

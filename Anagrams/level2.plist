@@ -33,5 +33,7 @@
 	<integer>360</integer>
 	<key>pointsPerTile</key>
 	<integer>30</integer>
+	<key>highScore</key>
+	<integer>0</integer>
 </dict>
 </plist>

@@ -11,5 +11,10 @@
 @interface GameData : NSObject
 
 @property (nonatomic, assign) int points;
+// 3 challenges for each level
+@property (nonatomic , assign) int challengeLevelCounter ;
+
+@property (nonatomic, assign) int highScore;
+// ? add high score property
 
 @end
