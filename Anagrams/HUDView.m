@@ -14,27 +14,27 @@
 @implementation HUDView
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 +(instancetype) viewWithRect : (CGRect)rect
 {
     
     HUDView *hudView = [[HUDView alloc] initWithFrame:rect];
-    hudView.userInteractionEnabled = NO ;
+    hudView.userInteractionEnabled = YES ;
     
     // adding the stopwatch
-    hudView.stopwatch = [[StopwatchView alloc] initWithFrame:CGRectMake(hudView.center.x/2 , 0 , 300, 100)] ;
+    hudView.stopwatch = [[StopwatchView alloc] initWithFrame:CGRectMake(hudView.center.x-50 , 0 , 300, 100)] ;
     [hudView.stopwatch setSeconds:10];
     [hudView addSubview:hudView.stopwatch];
     
     // adding the points label
     
-    UILabel *pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(hudView.center.x+hudView.center.x/2,30,140,70)];
+    UILabel *pointsLabel = [[UILabel alloc] initWithFrame:CGRectMake(hudView.stopwatch.frame.origin.x + hudView.stopwatch.frame.size.width+50,30,140,70)];
     pointsLabel.backgroundColor = kClearColor ;
     pointsLabel.font =kFontHUD ;
     pointsLabel.text = pointsLabelText;
@@ -46,11 +46,33 @@
     hudView.gamePoints.textColor = kGamePointsColor ;
     
     [hudView addSubview: hudView.gamePoints];
-
+    
+    UIImage *buttonImage = [UIImage imageNamed:@"btn"];
+    
+    hudView.helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [hudView.helpButton setTitle:@"Hint!" forState:UIControlStateNormal] ;
+    hudView.helpButton.titleLabel.font = kFontHUD;
+    [hudView.helpButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    hudView.helpButton.frame = CGRectMake(30, 30, buttonImage.size.width, buttonImage.size.height);
+    hudView.helpButton.alpha = 0.8 ;
+    [hudView addSubview:hudView.helpButton];
     
     return hudView ;
-
+    
 }
 
 
+
+// Method to selectively respond to only button view touches in HUD
+
+
+-(id) hitTest:(CGPoint)point withEvent:(nullable UIEvent *)event
+{
+    UIView *hitView = (UIView *)[super hitTest:point withEvent:event];
+    
+    if([hitView isKindOfClass:[UIButton class]])
+        return hitView ;
+    
+    return nil ;
+}
 @end
