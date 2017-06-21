@@ -41,8 +41,9 @@
 
 -(void) setHudView:(HUDView *)hudView
 {
+    
     _hudView = hudView;
-    [_hudView.helpButton addTarget:self action:@selector(hintButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_hudView.hintButton addTarget:self action:@selector(hintButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
    
 
 }
@@ -115,7 +116,7 @@
             
         }
     }
-    self.hudView.helpButton.enabled = YES ;
+    self.hudView.hintButton.enabled = YES ;
     [self startStopWatch];
     
 }
@@ -130,15 +131,15 @@
     [self stopStopWatch];
     [self.audioController playEffect:kSoundWin];
     //[self addBonusPoints];
+    
     // TODO: add delay till points are being updated.
     [self clearGameBoard]; 
-    // TODO: add success/failiure logic for next level
+    
     if([self didWinTheGame])
         self.onAnagramSolved(YES) ;
     else
         self.onAnagramSolved(NO);
     
-    NSLog(@"Game Over ") ;  // TODO : add alert view
     
 }
 
@@ -160,7 +161,19 @@
 {
     NSLog(@" hint button pressed ");
     
-   self.hudView.helpButton.userInteractionEnabled = NO ;
+    static int counter = 3 ;
+    --counter ;
+    self.hudView.hintsRemainingLabel.text = [NSString stringWithFormat:@"%i hints left",counter];
+    
+    if (counter < 0)
+    {
+        self.hudView.hintButton.enabled = NO;
+        [self.hudView.hintsRemainingLabel removeFromSuperview];
+        return ;
+        
+    }
+    
+   self.hudView.hintButton.userInteractionEnabled = NO ;
     // Find the first unmatched target
     TargetView *target = nil;
     for (TargetView *temp in self.targetsArray)
@@ -194,7 +207,7 @@
         [self.gameView layoutIfNeeded] ;
     } completion:^(BOOL finished){
         [self placeTile:tile atTarget:target];
-        self.hudView.helpButton.userInteractionEnabled = YES ;
+        self.hudView.hintButton.userInteractionEnabled = YES ;
         [self checkForSuccess] ;
         
     }];
@@ -291,7 +304,7 @@
 {
     [self.timer invalidate] ;
     self.timer = nil ;
-    self.hudView.helpButton.enabled = NO ;
+    self.hudView.hintButton.enabled = NO ;
     
 }
 

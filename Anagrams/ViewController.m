@@ -147,7 +147,6 @@
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    
         switch(buttonIndex)
         {
             case -1:if(alertView.tag == 150)

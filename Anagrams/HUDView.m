@@ -13,13 +13,6 @@
 
 @implementation HUDView
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect {
- // Drawing code
- }
- */
 
 +(instancetype) viewWithRect : (CGRect)rect
 {
@@ -46,25 +39,30 @@
     hudView.gamePoints.textColor = kGamePointsColor ;
     
     [hudView addSubview: hudView.gamePoints];
-    
+    // Hint Button
     UIImage *buttonImage = [UIImage imageNamed:@"btn"];
     
-    hudView.helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hudView.helpButton setTitle:@"Hint!" forState:UIControlStateNormal] ;
-    hudView.helpButton.titleLabel.font = kFontHUD;
-    [hudView.helpButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    hudView.helpButton.frame = CGRectMake(30, 30, buttonImage.size.width, buttonImage.size.height);
-    hudView.helpButton.alpha = 0.8 ;
-    [hudView addSubview:hudView.helpButton];
+    hudView.hintButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [hudView.hintButton setTitle:@"Hint!" forState:UIControlStateNormal] ;
+    hudView.hintButton.titleLabel.font = kFontHUD;
+    [hudView.hintButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    hudView.hintButton.frame = CGRectMake(30, 30, buttonImage.size.width, buttonImage.size.height);
+    hudView.hintButton.alpha = 0.8 ;
+    [hudView addSubview:hudView.hintButton];
+    
+    // Number of hints label
+    
+    hudView.hintsRemainingLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, hudView.hintButton.bounds.origin.y+ hudView.hintButton.bounds.size.height+25, 400, 60)];
+    hudView.hintsRemainingLabel.text = @" 3 Hints Remaining ";
+    hudView.hintsRemainingLabel.font =kFontHUD ;
+    [hudView addSubview:hudView.hintsRemainingLabel];
+    
     
     return hudView ;
     
 }
 
-
-
 // Method to selectively respond to only button view touches in HUD
-
 
 -(id) hitTest:(CGPoint)point withEvent:(nullable UIEvent *)event
 {
