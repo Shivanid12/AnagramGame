@@ -34,14 +34,26 @@
     {
         self.data = [[GameData alloc] init];
         self.data.points = 0 ;
+        self.audioController = [[AudioController alloc] init];
+        [self.audioController configureAudioEffects:kAudioEffects];
     }
     return  self ;
 }
+
+-(void) setHudView:(HUDView *)hudView
+{
+    
+    _hudView = hudView;
+    [_hudView.helpButton addTarget:self action:@selector(hintButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+   
+
+    }
 -(void)dealRandomAnagram
 {
     //check point *
     
     NSAssert(self.level.anagrams, @"no level loaded");
+   
     
     // fetching random anagram pair
     
@@ -56,7 +68,7 @@
     int secondAnagramLength = (int) [secondAnagram length] ;
     
     NSLog( @" anagram 1 : %@ | count : %i",firstAnagram ,firstAnagramLength);
-    NSLog(@" anagram 2  : %@ |count: %i ",secondAnagram ,secondAnagramLength) ;
+    NSLog( @" anagram 2  : %@ |count: %i ",secondAnagram ,secondAnagramLength) ;
     
     // calculate tile side
     
@@ -107,6 +119,8 @@
             
         }
     }
+    self.hudView.helpButton.enabled = YES ;
+
     [self startStopWatch];
     
 }
@@ -131,6 +145,7 @@
         if([targetViewTemp.letter isEqualToString:tileView.letter])
         {
             NSLog(@" Success ,letter matches ");
+            [self.audioController playEffect:kSoundDing];
             [self placeTile:tileView atTarget:targetViewTemp];
           self.data.points += self.level.pointsPerTile ;
             [self.hudView.gamePoints countTo:self.data.points withDuration:1.5 ];
@@ -141,6 +156,7 @@
         else
         {
             NSLog(@"Failure letter doesnt match ");
+            [self.audioController playEffect:kSoundWrong];
             self.data.points -= self.level.pointsPerTile ;
             [self.hudView.gamePoints countTo:self.data.points withDuration:1.5];
             NSLog(@"game points : %d",self.data.points);
@@ -156,7 +172,7 @@
                              } completion:nil];
         }
     }
-}
+    }
 
 
 -(void) placeTile:(TileView *)tileView atTarget:(TargetView *)targetView
@@ -186,6 +202,7 @@
             return ;
     }
     [self stopStopWatch];
+    [self.audioController playEffect:kSoundWin];
     NSLog(@"Game Over ") ;  // TODO : add alert view
     
 }
@@ -204,6 +221,7 @@
 {
     [self.timer invalidate] ;
      self.timer = nil ;
+    self.hudView.helpButton.enabled = NO ;
     
 }
 
@@ -216,5 +234,58 @@
         [self stopStopWatch] ;
     
 }
+
+-(IBAction)hintButtonPressed:(id)sender
+{
+    NSLog(@" hint button pressed ");
+    
+   self.hudView.helpButton.userInteractionEnabled = NO ;
+    // Find the first unmatched target
+    TargetView *target = nil;
+    for (TargetView *temp in self.targetsArray)
+    {
+        if(temp.isMatched ==  NO)
+        {
+            target = temp ;
+            break ;
+        }
+        
+    }
+    
+    // Find the tile matching the target
+    TileView *tile = nil;
+    
+    for (TileView *temp in self.tilesArray)
+    {
+        NSLog(@"----> %@",temp.letter);
+        
+        if(temp.isMatched == NO && [temp.letter isEqualToString:target.letter])
+        {
+            tile = temp ;
+            break ;
+        }
+        
+    }
+    
+    [self.gameView bringSubviewToFront:tile];
+    
+    [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+        tile.center = target.center ;
+        [self.gameView setNeedsDisplay];
+        [self.gameView layoutIfNeeded] ;
+    } completion:^(BOOL finished){
+        [self placeTile:tile atTarget:target];
+        self.hudView.helpButton.userInteractionEnabled = YES ;
+        [self checkForSuccess] ;
+        
+    }];
+    
+    // Deduct points from score
+    
+    self.data.points -= self.level.pointsPerTile/2 ;
+    [self.hudView.gamePoints countTo:self.data.points withDuration:1.5];
+    
+}
+
 
 @end

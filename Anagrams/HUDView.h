@@ -17,6 +17,8 @@
 
 @property (nonatomic,weak) CounterLabelView *gamePoints ;
 
+@property (nonatomic , strong) UIButton *helpButton ;
+
 +(instancetype)viewWithRect : (CGRect)rect ;
 
 

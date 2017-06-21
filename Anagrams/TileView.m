@@ -10,9 +10,10 @@
 #import "config.h"
 
 @interface TileView()
+{
+    CGAffineTransform tempTransform ;
+}
 
-@property (nonatomic ,assign) int xTouchOffset ;
-@property (nonatomic ,assign) int yTouchOffset ;
 
 @end
 @implementation TileView
@@ -29,21 +30,32 @@
     self = [super initWithImage:tileImage];
     if(self)
     {
-         // resize the tiles
-         float scale = sideLength/tileImage.size.width ;
-         self.frame = CGRectMake(0, 0, tileImage.size.width*scale, tileImage.size.height*scale);
-         
-         UILabel *textlabel = [[UILabel alloc] initWithFrame:self.bounds ];
-         textlabel.textAlignment = NSTextAlignmentCenter ;
-         textlabel.backgroundColor = [UIColor clearColor] ;
-         textlabel.textColor = [UIColor whiteColor] ;
-         textlabel.font = [UIFont fontWithName:@"Verdana-Bold" size:78*scale] ;
-         textlabel.text = [letter uppercaseString];
-         [self addSubview:textlabel];
-         self.userInteractionEnabled = YES ;
-         self.isMatched = NO ;
-         _letter = letter ;
-     }
+        // resize the tiles
+        float scale = sideLength/tileImage.size.width ;
+        self.frame = CGRectMake(0, 0, tileImage.size.width*scale, tileImage.size.height*scale);
+        
+        UILabel *textlabel = [[UILabel alloc] initWithFrame:self.bounds ];
+        textlabel.textAlignment = NSTextAlignmentCenter ;
+        textlabel.backgroundColor = kClearColor;
+        textlabel.textColor = [UIColor whiteColor] ;
+        textlabel.font = [UIFont fontWithName:@"Verdana-Bold" size:78*scale] ;
+        textlabel.text = [letter uppercaseString];
+        [self addSubview:textlabel];
+        self.userInteractionEnabled = YES ;
+        self.isMatched = NO ;
+        _letter = letter ;
+        
+        // adding shadow
+        
+        self.layer.shadowColor = [UIColor blackColor].CGColor ;
+        self.layer.shadowOpacity = 0 ;
+        self.layer.shadowOffset = CGSizeMake(10.0, 10.0);
+        self.layer.shadowRadius = 15.0f ;
+        self.layer.masksToBounds = NO ;
+        
+        UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds] ;
+        self.layer.shadowPath = path.CGPath ;
+    }
     return self ;
     
 }
@@ -57,18 +69,21 @@
     
     // move randomly upwards
     
-    int yOffset = (arc4random()%10 ) - 10 ;
+    int yOffset = (arc4random() % 10 ) - 10 ;
     self.center = CGPointMake(self.center.x, self.center.y +yOffset) ;
     
 }
 
-#pragma mark - dragging the tile 
+#pragma mark - dragging the tile
 
 -(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    CGPoint point = [[touches anyObject] locationInView:self.superview];
-    self.xTouchOffset = point.x - self.center.x ;
-    self.yTouchOffset = point.y - self.center.y ;
+    [self.superview bringSubviewToFront:self] ;
+    // add shadow and Increase tile size
+    self.layer.shadowOpacity = 0.8 ;
+    tempTransform = self.transform ;
+    self.transform = CGAffineTransformScale(self.transform, 1.2, 1.2);
+    
     
     
 }
@@ -76,8 +91,7 @@
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     CGPoint point = [[touches anyObject] locationInView:self.superview] ;
-    
-    self.center = CGPointMake(point.x - self.xTouchOffset , point.y - self.yTouchOffset);
+    self.center = CGPointMake(point.x , point.y);
     
     
 }
@@ -85,6 +99,10 @@
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self touchesMoved:touches withEvent:event] ;
+    
+    // hide shadow and resize to original
+    self.layer.shadowOpacity = 0 ;
+    self.transform = tempTransform ;
     if(self.dragDelegate)
     {
         [self.dragDelegate tileView:self didDragToPoint:self.center];

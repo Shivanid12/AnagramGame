@@ -12,7 +12,8 @@
 #import "GameController.h"
 #import "HUDView.h"
 
-@interface ViewController ()
+@interface ViewController () <UIActionSheetDelegate>
+
 @property (nonatomic ,strong) GameController *gameController ;
 
 @end
@@ -27,7 +28,6 @@
     {
         self.gameController = [GameController new] ;
         
-        
     }
     return self ;
     
@@ -36,26 +36,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    Level *level1 = [Level levelWithNum:1] ;
-    NSLog(@" anagrams : %@",level1.anagrams) ;
-    
     UIView *gameLayer = [[UIView alloc] initWithFrame:CGRectMake(0 ,0, kScreenWidth, kScreenHeight)];
     [self.view addSubview:gameLayer] ;
     self.gameController.gameView = gameLayer ;
     
-    self.gameController.level = level1 ;
-    [self.gameController dealRandomAnagram] ;
-    
-    
     HUDView *hud = [HUDView viewWithRect:CGRectMake(0, 0, kScreenWidth, kScreenHeight)] ;
     self.gameController.hudView = hud ;
-  
-        [self.view addSubview:hud];
     
+    [self.view addSubview:hud];
     
-    
-
     
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self showLevelMenu];
+    
+}
+
+-(void)showLevelMenu
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Difficulty Level" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Easy",@"Medium",@"Hard", nil];
+    [actionSheet showInView:self.view];
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == -1)
+    {
+        [self showLevelMenu];
+        return ;
+    }
+    
+    int levelIndex = buttonIndex+1;
+    self.gameController.level = [Level levelWithNum:levelIndex] ;
+    [self.gameController dealRandomAnagram] ;
+    
+}
 @end

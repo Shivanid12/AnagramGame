@@ -17,6 +17,7 @@
 		40D9CCC31EC98DA80096FF2F /* gameBackground@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40D9CCC21EC98DA80096FF2F /* gameBackground@2x.jpg */; };
 		40E333E11EF7FADB0064EE5B /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E333E01EF7FADB0064EE5B /* GameData.m */; };
 		40E333E41EF7FCC60064EE5B /* CounterLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E333E31EF7FCC60064EE5B /* CounterLabelView.m */; };
+		40E3340F1EF928400064EE5B /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E3340E1EF928400064EE5B /* AudioController.m */; };
 		9C0D03BE16D2D30D00D3D45C /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C0D03BD16D2D30D00D3D45C /* win.mp3 */; };
 		9C0D03C716D2D6C100D3D45C /* Comic_Andy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C0D03C616D2D6C100D3D45C /* Comic_Andy.ttf */; };
 		9C2695D516D270A40019199F /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C2695D416D270A40019199F /* ding.mp3 */; };
@@ -69,6 +70,8 @@
 		40E333E01EF7FADB0064EE5B /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
 		40E333E21EF7FCC60064EE5B /* CounterLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CounterLabelView.h; sourceTree = "<group>"; };
 		40E333E31EF7FCC60064EE5B /* CounterLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CounterLabelView.m; sourceTree = "<group>"; };
+		40E3340D1EF928400064EE5B /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
+		40E3340E1EF928400064EE5B /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
 		9C0D03BD16D2D30D00D3D45C /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
 		9C0D03C616D2D6C100D3D45C /* Comic_Andy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Comic_Andy.ttf; sourceTree = "<group>"; };
 		9C2695D416D270A40019199F /* ding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ding.mp3; sourceTree = "<group>"; };
@@ -184,6 +187,8 @@
 			children = (
 				40D9CCB71EC635380096FF2F /* GameController.h */,
 				40D9CCB81EC635380096FF2F /* GameController.m */,
+				40E3340D1EF928400064EE5B /* AudioController.h */,
+				40E3340E1EF928400064EE5B /* AudioController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -391,6 +396,7 @@
 				9CCA40B116CFD85A00B16E42 /* AppDelegate.m in Sources */,
 				401293881ECEE92F0032BFDA /* StopwatchView.m in Sources */,
 				40D9CCBC1EC63A510096FF2F /* TileView.m in Sources */,
+				40E3340F1EF928400064EE5B /* AudioController.m in Sources */,
 				40D9CCB61EC5E6640096FF2F /* Level.m in Sources */,
 				40D9CCB91EC635380096FF2F /* GameController.m in Sources */,
 				4012938B1ECEEB0B0032BFDA /* HUDView.m in Sources */,
