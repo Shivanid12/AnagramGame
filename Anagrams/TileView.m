@@ -30,20 +30,20 @@
     self = [super initWithImage:tileImage];
     if(self)
     {
-         // resize the tiles
-         float scale = sideLength/tileImage.size.width ;
-         self.frame = CGRectMake(0, 0, tileImage.size.width*scale, tileImage.size.height*scale);
-         
-         UILabel *textlabel = [[UILabel alloc] initWithFrame:self.bounds ];
-         textlabel.textAlignment = NSTextAlignmentCenter ;
-         textlabel.backgroundColor = kClearColor;
-         textlabel.textColor = [UIColor whiteColor] ;
-         textlabel.font = [UIFont fontWithName:@"Verdana-Bold" size:78*scale] ;
-         textlabel.text = [letter uppercaseString];
-         [self addSubview:textlabel];
-         self.userInteractionEnabled = YES ;
-         self.isMatched = NO ;
-         _letter = letter ;
+        // resize the tiles
+        float scale = sideLength/tileImage.size.width ;
+        self.frame = CGRectMake(0, 0, tileImage.size.width*scale, tileImage.size.height*scale);
+        
+        UILabel *textlabel = [[UILabel alloc] initWithFrame:self.bounds ];
+        textlabel.textAlignment = NSTextAlignmentCenter ;
+        textlabel.backgroundColor = kClearColor;
+        textlabel.textColor = [UIColor whiteColor] ;
+        textlabel.font = [UIFont fontWithName:@"Verdana-Bold" size:78*scale] ;
+        textlabel.text = [letter uppercaseString];
+        [self addSubview:textlabel];
+        self.userInteractionEnabled = YES ;
+        self.isMatched = NO ;
+        _letter = letter ;
         
         // adding shadow
         
@@ -55,7 +55,7 @@
         
         UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds] ;
         self.layer.shadowPath = path.CGPath ;
-     }
+    }
     return self ;
     
 }
@@ -74,7 +74,7 @@
     
 }
 
-#pragma mark - dragging the tile 
+#pragma mark - dragging the tile
 
 -(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
@@ -99,6 +99,7 @@
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self touchesMoved:touches withEvent:event] ;
+    
     // hide shadow and resize to original
     self.layer.shadowOpacity = 0 ;
     self.transform = tempTransform ;

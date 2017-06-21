@@ -14,12 +14,12 @@
 @implementation HUDView
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 +(instancetype) viewWithRect : (CGRect)rect
 {
@@ -54,11 +54,11 @@
     hudView.helpButton.titleLabel.font = kFontHUD;
     [hudView.helpButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
     hudView.helpButton.frame = CGRectMake(30, 30, buttonImage.size.width, buttonImage.size.height);
-     hudView.helpButton.alpha = 0.8 ;
-     [hudView addSubview:hudView.helpButton];
-
+    hudView.helpButton.alpha = 0.8 ;
+    [hudView addSubview:hudView.helpButton];
+    
     return hudView ;
-
+    
 }
 
 
